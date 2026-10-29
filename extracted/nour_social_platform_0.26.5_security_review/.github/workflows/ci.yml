@@ -1,0 +1,50 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: nour
+          POSTGRES_PASSWORD: test-password-only
+          POSTGRES_DB: nour_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U nour -d nour_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      DATABASE_URL: postgresql://nour:test-password-only@127.0.0.1:5432/nour_test?schema=public
+      NEXT_PUBLIC_API_URL: http://127.0.0.1:4000/api
+      WEB_ORIGIN: http://127.0.0.1:3000
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.12.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run source and security regression checks
+        run: |
+          pnpm check:source
+          pnpm check:ids
+          pnpm check:security
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Generate Prisma client
+        run: pnpm --filter @nour/api prisma:generate
+      - run: pnpm --filter @nour/api prisma:push
+      - run: pnpm -r typecheck
+      - run: pnpm -r build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e

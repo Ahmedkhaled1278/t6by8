@@ -1,0 +1,1 @@
+export default function OfflinePage() { return <main id="page_offline" className="offline-page" dir="rtl"><div id="section_offline_card" className="offline-card"><span className="offline-mark">ن</span><h1>إنت أوفلاين دلوقتي</h1><p>الصفحة دي مش متاحة من غير إنترنت. لما الاتصال يرجع، جرّب تفتح نُور تاني.</p><a id="link_offline_home" href="/">العودة للرئيسية</a></div></main>; }

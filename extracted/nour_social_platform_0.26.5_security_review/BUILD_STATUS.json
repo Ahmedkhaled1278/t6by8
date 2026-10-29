@@ -1,0 +1,33 @@
+{
+  "project": "Nūr Social Platform",
+  "version": "0.26.5-security-review",
+  "status": "security-hardening-applied-static-checks-pending-full-build",
+  "implemented": [
+    "Rate limit password-reset token submissions",
+    "Rate limit email-verification requests and token attempts",
+    "Reject credentialed CORS reflection in production and require explicit WEB_ORIGIN",
+    "Use only HTTPS for production S3 endpoint and require explicit S3 credentials/configuration",
+    "Fail fast in production when SMTP is not configured, preventing silent email-verification/password-reset failure",
+    "Update health endpoint version to match project version"
+  ],
+  "verified": {
+    "source_structure_checks": true,
+    "identifier_checks": true,
+    "security_static_regression_checks": true,
+    "json_and_script_syntax_checks": true,
+    "typescript_next_nest_build": false,
+    "dependency_installation": false,
+    "database_runtime": false,
+    "deployment": false,
+    "android_apk": false,
+    "firebase_cloud_messaging": false,
+    "api_typecheck": false,
+    "web_typecheck": false,
+    "next_build": false,
+    "nest_build": false,
+    "api_typecheck_attempted": true,
+    "web_typecheck_attempted": true,
+    "ci_static_checks_added": true
+  },
+  "release_note": "Re-ran source structure, identifier, and security static regression checks successfully in the current environment. CI workflow now runs these checks before dependency installation. Corepack could not download pnpm because registry.npmjs.org DNS failed (EAI_AGAIN); TypeScript check was attempted but dependencies/types are missing. No application build, database runtime, deployment, APK, or FCM setup has been completed."
+}

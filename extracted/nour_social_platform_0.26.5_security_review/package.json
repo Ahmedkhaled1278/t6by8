@@ -1,0 +1,35 @@
+{
+  "name": "nour-social-platform",
+  "private": true,
+  "version": "0.26.5",
+  "packageManager": "pnpm@10.12.1",
+  "scripts": {
+    "dev": "pnpm --parallel --filter @nour/web --filter @nour/api dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "check:source": "node scripts_verify_foundation.mjs",
+    "check:ids": "node scripts_check_ids.mjs",
+    "test:e2e": "playwright test",
+    "mobile:web:export": "MOBILE_BUILD=1 pnpm --filter @nour/web build",
+    "mobile:sync": "node scripts/mobile-sync.mjs",
+    "mobile:open": "pnpm exec cap open android",
+    "mobile:apk": "node scripts/mobile-apk.mjs",
+    "check:security": "node scripts_check_security_config.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@playwright/test": "^1.55.0",
+    "@capacitor/cli": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/android": "^7.2.0"
+  },
+  "dependencies": {
+    "@capacitor/app": "^7.0.1",
+    "@capacitor/browser": "^7.0.1",
+    "@capacitor/network": "^7.0.1",
+    "@capacitor/preferences": "^7.0.1",
+    "@capacitor/splash-screen": "^7.0.1",
+    "@capacitor/status-bar": "^7.0.1"
+  }
+}
